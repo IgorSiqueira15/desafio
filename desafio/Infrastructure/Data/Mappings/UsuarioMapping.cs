@@ -1,0 +1,26 @@
+﻿using desafio.Domain.Usuarios;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace desafio.Infrastructure.Data.Mappings
+{
+    public class UsuarioMapping : IEntityTypeConfiguration<Usuario>
+    {
+        public void Configure(EntityTypeBuilder<Usuario> builder)
+        {
+            builder.ToTable("TB_Usuario");
+
+            builder.HasKey(x => x.ID);
+            builder.Property(x => x.ID).ValueGeneratedOnAdd();
+            builder.Property(x => x.Nome);
+            builder.Property(x => x.Sobrenome);
+            builder.Property(x => x.Email);
+            builder.Property(x => x.DataNascimento);
+            builder.Property(x => x.Escolaridade);
+        }
+    }
+}
