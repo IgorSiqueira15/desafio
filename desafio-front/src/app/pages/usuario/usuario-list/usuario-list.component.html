@@ -1,1 +1,62 @@
-<p>usuario-list works!</p>
+<div class="content">
+  <div>
+    <h2>Usuario</h2>
+  </div>
+  <div class="col-md-12">
+    <button class="btn btn-second" [routerLink]="['novo']">+Usuario</button>
+    <input
+      class="form-control col-md-3 filtro"
+      type="text"
+      name="search"
+      [(ngModel)]="filter"
+      placeholder="Pesquisar..."
+    />
+  </div>
+  <table class="table table-bordered">
+    <tr class="text-center">
+      <th>Nome</th>
+      <th>Sobrenome</th>
+      <th>Data Nascimento</th>
+      <th>Email</th>
+      <th>Ações</th>
+    </tr>
+    <tr
+      *ngFor="
+        let usuario of usuarios
+          | filter: filter
+          | paginate: { itemsPerPage: 5, currentPage: paginaAtual };
+        let i = index
+      "
+      class="text-center"
+    >
+      <td>{{ usuario.nome }}</td>
+      <td>{{ usuario.cnpj }}</td>
+      <td>{{ usuario.dataNascimento }}</td>
+      <td>{{ usuario.email }}</td>
+      <td>
+        <button
+          class="btn btn-info acoes"
+          [routerLink]="['/usuario/alterar', usuario.id]"
+        >
+          <i class="tim-icons icon-pencil"></i>
+        </button>
+        <button
+          class="btn btn-info acoes"
+          (click)="modalDeletar(usuario.id, usuario.nome)"
+        >
+          <i class="tim-icons icon-trash-simple"></i>
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td *ngIf="dados" colspan="5" class="text-center">
+        Não há registros cadastrados!
+      </td>
+    </tr>
+  </table>
+
+  <pagination-controls
+    class="pagination"
+    (pageChange)="paginaAtual = $event"
+  ></pagination-controls>
+</div>
