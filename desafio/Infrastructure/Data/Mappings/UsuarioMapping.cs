@@ -15,12 +15,11 @@ namespace desafio.Infrastructure.Data.Mappings
             builder.ToTable("TB_Usuario");
 
             builder.HasKey(x => x.ID);
-            builder.Property(x => x.ID).ValueGeneratedOnAdd();
-            builder.Property(x => x.Nome);
-            builder.Property(x => x.Sobrenome);
-            builder.Property(x => x.Email);
-            builder.Property(x => x.DataNascimento);
-            builder.Property(x => x.Escolaridade);
+            builder.Property(x => x.Nome).HasColumnType("VARCHAR(50)");
+            builder.Property(x => x.Sobrenome).HasColumnType("VARCHAR(80)");
+            builder.Property(x => x.Email).HasColumnType("VARCHAR(120)");
+            builder.Property(x => x.DataNascimento).HasColumnType("DATE");
+            builder.Property(x => x.Escolaridade).HasConversion<int>();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using desafio.Domain.ValueObject;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,11 +15,11 @@ namespace desafio.Domain.Usuarios
         public string Sobrenome { get; set; }
         public string Email { get; set; }
         public DateTime DataNascimento { get; set; }
-        public int Escolaridade { get; set; }
+        public Escolaridade Escolaridade { get; set; }
      
-        private Usuario() { }
+     
 
-        public static Usuario New(string nome, string sobrenome, string email, DateTime dataNascimento, int escolaridade)
+        public static Usuario New(string nome, string sobrenome, string email, DateTime dataNascimento, Escolaridade escolaridade)
         {
             var usuario = new Usuario
             {

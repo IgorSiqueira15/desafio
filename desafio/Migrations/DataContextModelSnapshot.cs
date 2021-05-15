@@ -27,19 +27,19 @@ namespace desafio.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("DATE");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("VARCHAR(120)");
 
                     b.Property<int>("Escolaridade")
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("VARCHAR(50)");
 
                     b.Property<string>("Sobrenome")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("VARCHAR(80)");
 
                     b.HasKey("ID");
 

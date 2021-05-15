@@ -18,19 +18,9 @@ namespace desafio.Controllers.Usuarios
     {
         [HttpGet]
         [Route("")]
-        public async Task<ActionResult<List<Usuario>>> Get([FromServices] DataContext context)
+        public async Task<ActionResult<List<Usuario>>> Get()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
-            optionsBuilder.UseSqlServer("Server=10.30.0.36;Database=DBTeste2;User Id=usrsquadra;Password=usrsquadra090807");
-            context = new DataContext(optionsBuilder.Options);
-
-            var migracoesPendentes = context.Database.GetPendingMigrations();
-
-            if (migracoesPendentes.Count() > 0)
-            {
-                context.Database.Migrate();
-            }
-
+            var context = new DataContext();
             var usuarios = context.Usuario.ToList();
 
             return usuarios;
@@ -38,8 +28,10 @@ namespace desafio.Controllers.Usuarios
 
         [HttpPost]
         [Route("")]
-        public async Task<ActionResult<Usuario>> Post([FromServices] DataContext context, [FromBody] Usuario model)
+        public async Task<ActionResult<Usuario>> Post([FromBody] Usuario model)
         {
+            var context = new DataContext();
+
             var usuario = Usuario.New(model.Nome, model.Sobrenome, model.Email, model.DataNascimento, model.Escolaridade);
              context.Usuario.Add(usuario);
                 
@@ -50,8 +42,10 @@ namespace desafio.Controllers.Usuarios
 
         [HttpPut]
         [Route("{usuarioId:int}")]
-        public async Task<ActionResult<Usuario>> Put([FromServices] DataContext context, [FromBody] Usuario model, int usuarioId)
+        public async Task<ActionResult<Usuario>> Put([FromBody] Usuario model, int usuarioId)
         {
+            var context = new DataContext();
+
             var usuario = context.Usuario.FirstOrDefault(x => x.ID == usuarioId);
 
             usuario.Nome = model.Nome;
@@ -70,8 +64,10 @@ namespace desafio.Controllers.Usuarios
         [HttpDelete]
         [Route("{usuarioId:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<Usuario>> Delete([FromServices] DataContext context, int usuarioId)
+        public async Task<ActionResult<Usuario>> Delete(int usuarioId)
         {
+            var context = new DataContext();
+
             var usuario = context.Usuario.FirstOrDefault(x => x.ID == usuarioId);
             context.Usuario.Remove(usuario);
 
